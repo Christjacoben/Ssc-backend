@@ -16,7 +16,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "usertoken";
 const MONGO_URI = process.env.MONGO_URI;
 
 const corsOptions = {
-  origin: true,
+  origin: ["http://localhost:5173", "https://ssc-backend.onrender.com"],
   credentials: true,
 };
 
