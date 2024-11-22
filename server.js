@@ -5,15 +5,15 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-require("dotenv").config();
 
 const { v4: uuidv4 } = require("uuid");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
-const JWT_SECRET = process.env.JWT_SECRET || "usertoken";
-const MONGO_URI = process.env.MONGO_URI;
+const JWT_SECRET = "usertoken";
+const MONGO_URI =
+  "mongodb+srv://admin:admin123@ssc.hirsz.mongodb.net/?retryWrites=true&w=majority&appName=SSC";
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -256,7 +256,9 @@ app.get("/api/scanEvent/:eventTitle", async (req, res) => {
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
     }
-    res.status(200).json(event);
+    res
+      .status(200)
+      .json({ ...event.toObject(), participants: event.participants || [] });
   } catch (error) {
     console.error("Error fetching qrScanEvent", error);
     res.status(500).json({ message: "Server error", error });
@@ -265,15 +267,12 @@ app.get("/api/scanEvent/:eventTitle", async (req, res) => {
 
 app.get("/api/scanEvents", async (req, res) => {
   try {
-    // Fetch all scan events from the database
     const events = await QrScanEvent.find();
 
-    // If no events found, return an empty array
     if (!events || events.length === 0) {
       return res.status(404).json({ message: "No events found" });
     }
 
-    // Return the list of events
     res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching all scan events:", error);
