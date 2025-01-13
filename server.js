@@ -16,7 +16,7 @@ const MONGO_URI =
   "mongodb+srv://admin:admin123@ssc.hirsz.mongodb.net/?retryWrites=true&w=majority&appName=SSC";
 
 const corsOptions = {
-  origin: "www.ssceventsattendance.com",
+  origin: "https://www.ssceventsattendance.com",
   credentials: true,
 };
 
