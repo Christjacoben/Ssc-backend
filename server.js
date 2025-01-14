@@ -16,7 +16,7 @@ const MONGO_URI =
   "mongodb+srv://admin:admin123@ssc.hirsz.mongodb.net/?retryWrites=true&w=majority&appName=SSC";
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://www.ssceventsattendance.com",
   credentials: true,
 };
 
@@ -146,8 +146,8 @@ app.post("/api/login", async (req, res) => {
     );
     res.cookie("token", token, {
       httOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "None",
     });
     res.status(200).json({
       message: "Login successfully",
