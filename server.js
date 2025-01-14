@@ -60,6 +60,7 @@ const Event = mongoose.model("Event", eventSchema);
 const participantSchema = new mongoose.Schema({
   name: String,
   course: String,
+  gender: String,
   studentId: String,
   year: String,
   time: String,
@@ -229,6 +230,7 @@ app.post("/api/scanEvent", async (req, res) => {
 
     const newParticipant = {
       name,
+      gender,
       course,
       studentId,
       year,
