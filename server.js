@@ -60,6 +60,7 @@ const Event = mongoose.model("Event", eventSchema);
 const participantSchema = new mongoose.Schema({
   name: String,
   course: String,
+  gender: String,
   studentId: String,
   year: String,
   time: String,
@@ -204,7 +205,7 @@ app.get("/api/events", async (req, res) => {
 });
 
 app.post("/api/scanEvent", async (req, res) => {
-  const { eventTitle, name, course, studentId, year, time } = req.body;
+  const { eventTitle, name, gender, course, studentId, year, time } = req.body;
   const eventQrId = uuidv4();
   try {
     let event = await QrScanEvent.findOne({ eventTitle });
@@ -229,6 +230,7 @@ app.post("/api/scanEvent", async (req, res) => {
 
     const newParticipant = {
       name,
+      gender,
       course,
       studentId,
       year,
